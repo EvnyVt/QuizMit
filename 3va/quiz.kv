@@ -1,0 +1,173 @@
+<StartScreen>:
+    BoxLayout:
+        canvas:
+            Color:
+                rgba: 161/255, 213/255, 240/255, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        orientation: "vertical"
+        padding: root.width * 0.20, root.height * 0.2
+        BoxLayout:
+            orientation: "vertical"
+            Image:
+                source: "data/img.png"
+            Label:
+                text: "Pronto para a Missão, semideus?"
+                color: 0, 0, 0, 1
+                bold: True
+                font_size: 25
+        BoxLayout:
+            orientation: "vertical"
+            spacing: 30
+            
+            ButtonMenu:
+                text: "Iniciar"
+                bold: True
+                font_size: 20
+                size_hint_y: None
+                height: 50
+                on_press: root.start_quiz()
+            ButtonMenu:
+                text: "Sair"
+                bold: True
+                font_size: 20
+                size_hint_y: None
+                height: 50
+                on_press: app.stop()
+
+<QuestionScreen>:
+    BoxLayout:
+        spacing: 100
+        canvas:
+            Color:
+                rgba: 96/255, 129/255, 145/255, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        orientation: "vertical"
+        padding: root.width * 0.20, root.height * 0.2
+        
+        BoxLayout:
+            orientation:"vertical"
+            Image:
+                source:"data/cro.png"
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: 20
+                Label:
+                    id: timer_label  
+                    text: ""
+                    font_size: 18
+                    bold: True
+                Label:
+                    text: app.quiz_data["questions"][app.current_question]
+                    font_size: 20
+                    bold: True
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: 20
+            Button:
+                text: app.quiz_data["options"][app.current_question][0]
+                group: 'options'
+                background_color: (7/255, 8/255, 36/255, 1)
+                background_normal: ''  # Remove o fundo padrão
+                on_press: root.check_answer(self, app.quiz_data["options"][app.current_question][0])
+                font_size: 20
+                bold: True
+                size_hint_y: None
+                height: 50
+            Button:
+                text: app.quiz_data["options"][app.current_question][1]
+                group: 'options'
+                background_color: (7/255, 8/255, 36/255, 1)
+                background_normal: ''  # Remove o fundo padrão
+                on_press: root.check_answer(self, app.quiz_data["options"][app.current_question][1])
+                font_size: 20
+                bold: True
+                size_hint_y: None
+                height: 50
+            Button:
+                text: app.quiz_data["options"][app.current_question][2]
+                group: 'options'
+                background_color: (7/255, 8/255, 36/255, 11)
+                background_normal: ''  # Remove o fundo padrão
+                on_press: root.check_answer(self, app.quiz_data["options"][app.current_question][2])
+                font_size: 20
+                bold: True
+                size_hint_y: None
+                height: 50
+            Button:
+                text: app.quiz_data["options"][app.current_question][3]
+                group: 'options'
+                background_color: (7/255, 8/255, 36/255, 1)
+                background_normal: ''  # Remove o fundo padrão
+                on_press: root.check_answer(self, app.quiz_data["options"][app.current_question][3])
+                font_size: 20
+                bold: True
+                size_hint_y: None
+                height: 50
+
+    BoxLayout:
+        orientation: 'horizontal'
+        spacing: 20
+        Button:
+            text: "Pular"
+            font_size: 18
+            background_color: (0, 0, 0, 1)
+            bold: True
+            size_hint_y: None
+            height: 30
+            on_press: root.show_next_question()
+        Button:
+            text: "Voltar"
+            font_size: 18
+            background_color: (0, 0, 0, 1)
+            bold: True
+            size_hint_y: None
+            height: 30
+            on_press: root.show_previous_question()
+
+
+<ResultScreen>:
+    BoxLayout:
+        canvas:
+            Color:
+                rgba: 161/255, 213/255, 240/255, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        orientation: "vertical"
+        padding: root.width * 0.20, root.height * 0.2
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: 40
+            Label:
+                id: score_label
+                text: ""  
+                font_size: 25
+                bold: True
+
+            ButtonMenu:
+                text: "Reiniciar"
+                bold: True
+                font_size: 20
+                size_hint_y: None
+                height: 50
+                on_press: app.restart_quiz()  # Call the restart_quiz method
+            ButtonMenu:
+                text: "Sair"
+                bold: True
+                font_size: 20
+                size_hint_y: None
+                height: 50
+                on_press: app.stop()
+
+<ButtonMenu@ButtonBehavior+Label>:
+    canvas.before:
+        Color:
+            rgba: 7/255, 8/255, 36/255, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            
